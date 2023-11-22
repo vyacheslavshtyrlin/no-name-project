@@ -3,7 +3,7 @@ import { useLocation, Navigate, Outlet } from "react-router-dom";
 import { routingConfig as ROUTES } from "@/shared/index";
 
 const RequireAuth = () => {
-  const auth = false;
+  const auth = true;
   const location = useLocation();
 
   return auth ? (

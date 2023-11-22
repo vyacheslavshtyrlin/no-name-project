@@ -21,7 +21,7 @@ export const Header = () => {
       <Flex
         bg={isDark ? "darkBg" : "lightBg"}
         boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
-        borderRadius={"15px"}
+        borderRadius={"10px"}
         minWidth="max-content"
         alignItems="center"
         gap="2"
