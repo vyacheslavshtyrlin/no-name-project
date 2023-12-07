@@ -1,27 +1,26 @@
 import React from "react";
-import { Routes, Route } from "react-router";
 import { lazy } from "react";
-import { routingConfig as r } from "@/shared/index";
-import Layout from "./layout/BaseLayout/index";
-import AuthLayout from "./layout/AuthLayout";
-import RequireAuth from "./RequireAuth";
 import { Heading } from "@chakra-ui/react";
+
+import { Routes, Route } from "react-router";
+
+import { routingConfig as r } from "@/shared/index";
+import { Layout, RequireAuth } from "@/features";
 
 const Main = lazy(() => import("./Main"));
 const Login = lazy(() => import("./Login"));
+const Answer = lazy(() => import("./Answer"));
+const Profile = lazy(() => import("./Profile"));
 
 export const Routing = () => {
   return (
     <Routes>
-      <Route element={<AuthLayout />}>
-        <Route path={r.login.path} element={<Login />} />
-      </Route>
-
+      <Route path={r.login.path} element={<Login />}></Route>
       <Route element={<RequireAuth />}>
         <Route element={<Layout />}>
           <Route path={r.base.path} element={<Main />} />
-
-          <Route path={"/test"} element={<Heading>TEST PAGE</Heading>} />
+          <Route path={"/profile"} element={<Profile></Profile>} />
+          <Route path={r.answer.createPath()} element={<Answer />}></Route>
         </Route>
       </Route>
     </Routes>

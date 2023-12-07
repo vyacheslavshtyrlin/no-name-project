@@ -1,31 +1,32 @@
-import { Button, FormControl, FormErrorMessage, FormLabel, } from "@chakra-ui/react"
-import { Field } from "rc-field-form"
-import { FieldProps } from 'rc-field-form/es/Field';
-
-import React, {useEffect} from "react"
-import { useFormContext } from "../Form/hook";
+import React from "react";
+import {
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+} from "@chakra-ui/react";
+import { Field } from "rc-field-form";
+import { FieldProps } from "rc-field-form/es/Field";
+import { useFormError } from "../Form/hook";
 
 interface FormItemInterface extends FieldProps {
-    label?: string
-    isRequired?: boolean
+  label?: string;
+  isRequired?: boolean;
 }
 
-export const FormItem = ({ children, isRequired = false, label, ...rest }: FormItemInterface) => {
-    const { form } = useFormContext()
-   // @ts-ignore
-    console.log(rest.onChange)
+export const FormItem = ({
+  children,
+  isRequired = false,
+  label,
+  ...rest
+}: FormItemInterface) => {
+  const { name } = rest;
+  const { errorsObject } = useFormError();
 
-    
-    useEffect(() => {
-        console.log(form?.isFieldsTouched())
-    }, [])
-
-
-    return (<FormControl isInvalid={true} isRequired={isRequired} >
-        <FormLabel>{label}</FormLabel>
-        <Field {...rest}>
-            {children}
-        </Field>
-        <FormErrorMessage>{'test'}</FormErrorMessage>
-    </FormControl>)
-}
+  return (
+    <FormControl isInvalid={errorsObject[name]} isRequired={isRequired}>
+      <FormLabel>{label}</FormLabel>
+      <Field {...rest}>{children}</Field>
+      <FormErrorMessage>{errorsObject[name]}</FormErrorMessage>
+    </FormControl>
+  );
+};

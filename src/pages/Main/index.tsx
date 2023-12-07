@@ -1,13 +1,8 @@
-import { Loader } from "@/shared";
-import { Heading } from "@chakra-ui/react";
 import React from "react";
+import { StartQueueCard } from "@/widgets";
 
 const Main = () => {
-  return (
-    <>
-      <Heading>{'{MAIN CONTENT WOULD BE HERE}'}</Heading>
-    </>
-  );
-}
+  return <StartQueueCard></StartQueueCard>;
+};
 
 export default Main;

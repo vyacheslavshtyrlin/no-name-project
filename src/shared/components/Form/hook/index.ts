@@ -1,14 +1,29 @@
-import React, { createContext, useContext } from 'react';
-import Form, { FormInstance } from 'rc-field-form';
+import { createContext, useContext, useMemo } from "react";
+import { FieldError } from "rc-field-form/es/interface";
 
-export const FormContext = createContext<FormInstance | null>(null)
 
-export const useFormContext = () => {
+export const FormContext = createContext<FieldError[]>([]);
 
-    const form = useContext(FormContext)
+export const useFormError = ():Record<string, any> => {
+  const formErrors = useContext(FormContext);
 
-    return {
-        form
-    }
+  const normalaizeFormErrors = (
+    formErrors: FieldError[]
+  ) => {
+    const err = formErrors.reduce(
+      (acc, curr) =>
+        Object.assign(acc, { [curr.name.toString()]: curr.errors.toString() }),
+      {}
+    )
 
-}
+    return err;
+  };
+
+  const errorsObject = useMemo(() => {
+    return normalaizeFormErrors(formErrors);
+  }, [formErrors]);
+
+  return {
+    errorsObject,
+  };
+};

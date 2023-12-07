@@ -1,15 +1,20 @@
-import React from "react";
-import { Input as ChakraInput, Checkbox as ChakraCheckbox, InputProps } from '@chakra-ui/react'
+import React, { ReactNode } from "react";
+import {
+  Input as ChakraInput,
+  InputProps,
+  InputGroup,
+  InputRightElement,
+} from "@chakra-ui/react";
 
-
-export const Input = ({ value = '', ...props }: InputProps) => {
-    console.log(props)
-    return (<ChakraInput value={value} {...props} />)
-};
-
-
-
-
-export const CheckBox = ({value = false, ...props}) => {
-    return (<ChakraCheckbox checked={value} {...props}></ChakraCheckbox>)
+interface InputInterface extends InputProps {
+  rightIcon?: ReactNode;
 }
+
+export const Input = ({ value = "", rightIcon, ...props }: InputInterface) => {
+  return (
+    <InputGroup size={props.size}>
+      <ChakraInput value={value} {...props} />
+      <InputRightElement>{rightIcon}</InputRightElement>
+    </InputGroup>
+  );
+};
